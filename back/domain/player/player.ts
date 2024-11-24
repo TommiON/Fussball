@@ -27,6 +27,6 @@ export class Player {
     
     constructor() {
         this.foot = new Footedness();
-        
+        this.birthday = new Birthday();
     }
 }

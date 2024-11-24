@@ -1,11 +1,13 @@
 import express = require('express');
 const app = express();
 
-import { Player } from './domain/player';
+import { Player } from './domain/player/player';
+import { Team } from './domain/team/team';
+import { Club } from './domain/club/club';
 
-let p = new Player();
-console.log('Syntyi pelaaja: ', p);
-console.log('toimiiks tää? ', p.foot.value)
+let c = new Club('FC Orvokki');
+console.log(c.name, ', perustettu ', c.established);
+c.team.players.forEach(p => console.log(p.foot.value, ' ', p.birthday.value));
 
 app.get('/ping', (req, res) => {
   res.send('Elossa ollaan!');
