@@ -7,7 +7,7 @@ import { Club } from './domain/club/club';
 
 let c = new Club('FC Orvokki');
 console.log(c.name, ', perustettu ', c.established);
-c.team.players.forEach(p => console.log(p.foot.value, ' ', p.birthday.value));
+c.team.players.forEach(p => console.log(p.name.value, ' ', p.foot.value, ' ', p.birthday.value));
 
 app.get('/ping', (req, res) => {
   res.send('Elossa ollaan!');
