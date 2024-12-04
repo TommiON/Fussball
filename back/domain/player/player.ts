@@ -1,19 +1,16 @@
 import { Trait } from "./trait";
 import { Skill } from "./skill";
-import { Birthday } from "./birthday";
 import { Footedness } from "./footedness";
-import { Name } from "./name";
 import { Form } from "./form"
-import { randomizer } from "../../utils/randomizer";
+import { generateName, generateFootedness, generateBirthDay } from "./playerFactory";
 
 export class Player {
-    name: Name;
-    birthday: Birthday;
+    name: string;
+    birthday: Date;
 
     form: Form;
-
+    
     foot: Footedness;
-
     traits: Trait[];
 
     stamina: Skill;
@@ -34,8 +31,9 @@ export class Player {
     dribbling: Skill;
     
     constructor() {
-        this.name = new Name();
-        this.foot = new Footedness();
-        this.birthday = new Birthday();
+        this.name = generateName();
+        this.foot = generateFootedness();
+        this.birthday = generateBirthDay();
+
     }
 }
