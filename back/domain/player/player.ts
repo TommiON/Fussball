@@ -3,31 +3,31 @@ import { Skill } from "./skill";
 import { Birthday } from "./birthday";
 import { Footedness } from "./footedness";
 import { Name } from "./name";
+import { Form } from "./form"
 import { randomizer } from "../../utils/randomizer";
 
 export class Player {
     name: Name;
     birthday: Birthday;
 
+    form: Form;
+
     foot: Footedness;
-    
+
     traits: Trait[];
 
-    // physical
     stamina: Skill;
     ruggedness: Skill;
     pace: Skill;
 
-    // tactical & mental
     vision: Skill;
     positioning: Skill;
     experience: Skill;
 
-    // technical
     heading: Skill;
     shooting: Skill;
-    passingShort: Skill;
-    passingLong: Skill;
+    shortPassing: Skill;
+    longPassing: Skill;
     ballControl: Skill;
     tackling: Skill;
     goalkeeping: Skill;
