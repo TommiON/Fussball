@@ -12,12 +12,9 @@ export function getRandomElement(elements: any[], distributionWeights?: number[]
 
             for (let i = 0; i < numberOfWeightsMissing; i++) {
                 distributionWeights.push(highestProvided + stepAddition);
-                console.log('luupin i ', (elements.length - distributionWeights.length))
-                console.log(i, ', lisättiin ', (highestProvided + stepAddition))
                 stepAddition += interval;
             }
 
-            console.log('no mitä tuli? ', distributionWeights)
         }
 
         return elements[drawIndexFromWeightedDistribution(distributionWeights)];
