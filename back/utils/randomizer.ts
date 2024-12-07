@@ -1,40 +1,69 @@
-export function randomizer(elements: any[], distributionWeights?: number[]) : Error | any {
+export function getRandomElement(elements: any[], distributionWeights?: number[]) : Error | any {
     if (!distributionWeights) {
         return elements[drawIndexFromFlatDistribution(elements.length)];
     } else {
+        // jos on annettu vain jakauman alku, täytetään loppu tasavälein
+        if (distributionWeights.length < elements.length) {
+            const highestProvided = distributionWeights[distributionWeights.length - 1];
+            const numberOfWeightsMissing = elements.length - distributionWeights.length;
+            const rangeToBeFilled = 100 - highestProvided;
+            const interval = rangeToBeFilled / numberOfWeightsMissing;
+            let stepAddition = interval;
+
+            for (let i = 0; i < numberOfWeightsMissing; i++) {
+                distributionWeights.push(highestProvided + stepAddition);
+                console.log('luupin i ', (elements.length - distributionWeights.length))
+                console.log(i, ', lisättiin ', (highestProvided + stepAddition))
+                stepAddition += interval;
+            }
+
+            console.log('no mitä tuli? ', distributionWeights)
+        }
+
         return elements[drawIndexFromWeightedDistribution(distributionWeights)];
+    }
+
+    function drawIndexFromFlatDistribution(numberOfElements: number) : number {
+        const randomNumber = Math.random() * 100;
+        const stepTresholdPercentage = 100.0 / numberOfElements;
+        let currentCeiling = stepTresholdPercentage;
+        let pickedIndex = 0;
+    
+        while (randomNumber > currentCeiling) {
+            currentCeiling += stepTresholdPercentage;
+            pickedIndex++;
+        }
+    
+        return pickedIndex;
+    }
+
+    function drawIndexFromWeightedDistribution(weights: number[]) : number {
+        const randomNumber = Math.random() * 100;
+        let pickedIndex = 0;
+    
+        for (let i = 0; i < weights.length; i++) {
+            if (randomNumber <= weights[i]) {
+                pickedIndex = i;
+                break;
+            } else {
+                pickedIndex++;
+            }
+        }
+    
+        return pickedIndex;   
     }
 }
 
-function drawIndexFromFlatDistribution(numberOfElements: number) : number {
+export function getRandomNumberInRange(floor: number, ceiling: number) : number {
     const randomNumber = Math.random() * 100;
-    const stepTresholdPercentage = 100.0 / numberOfElements;
+    const stepTresholdPercentage = 100.0 / (ceiling - floor);
     let currentCeiling = stepTresholdPercentage;
-    let pickedIndex = 0;
+    let increment = 0;
 
     while (randomNumber > currentCeiling) {
         currentCeiling += stepTresholdPercentage;
-        pickedIndex++;
+        increment++;
     }
 
-    return pickedIndex;
+    return floor + increment;
 }
-
-function drawIndexFromWeightedDistribution(weights: number[]) : number {
-    const randomNumber = Math.random() * 100;
-    let pickedIndex = 0;
-
-    for (let i = 0; i < weights.length; i++) {
-        if (randomNumber <= weights[i]) {
-            pickedIndex = i;
-            break;
-        } else {
-            pickedIndex++;
-        }
-    }
-
-    return pickedIndex;
-    
-}
-
-

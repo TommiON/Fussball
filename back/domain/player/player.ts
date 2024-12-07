@@ -2,7 +2,7 @@ import { Trait } from "./trait";
 import { Skill } from "./skill";
 import { Footedness } from "./footedness";
 import { Form } from "./form"
-import { generateName, generateFootedness, generateBirthDay } from "./playerFactory";
+import { generateName, generateFootedness, generateBirthDay, generateSkill, generateTraits } from "./playerFactory";
 
 export class Player {
     name: string;
@@ -13,27 +13,35 @@ export class Player {
     foot: Footedness;
     traits: Trait[];
 
-    stamina: Skill;
-    ruggedness: Skill;
-    pace: Skill;
+    stamina: number;
+    ruggedness: number;
+    pace: number;
 
-    vision: Skill;
-    positioning: Skill;
-    experience: Skill;
+    vision: number;
+    positioning: number;
+    experience: number;
 
-    heading: Skill;
-    shooting: Skill;
-    shortPassing: Skill;
-    longPassing: Skill;
-    ballControl: Skill;
-    tackling: Skill;
-    goalkeeping: Skill;
-    dribbling: Skill;
+    heading: number;
+    shooting: number;
+    shortPassing: number;
+    longPassing: number;
+    ballControl: number;
+    tackling: number;
+    goalkeeping: number;
+    dribbling: number;
     
     constructor() {
         this.name = generateName();
         this.foot = generateFootedness();
         this.birthday = generateBirthDay();
+
+        this.traits = generateTraits();
+
+        this.stamina = generateSkill();
+        this.ruggedness = generateSkill();
+        this.pace = generateSkill();
+
+        this.experience = 1;
 
     }
 }

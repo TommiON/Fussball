@@ -4,7 +4,7 @@ export class Trait {
             'Moody' |               // vire heittelee ylös ja alas voimakkaammin         
             'Charismatic' |         // 
             'Unpredictable' |
-            'Loyal' |               // kalliimpi ostaa ulos?
+            'Loyal' |               // kalliimpi ostaa ulos
             'Fragile'               // loukkaantumisherkkä
 
     constructor() {
