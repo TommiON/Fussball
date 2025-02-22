@@ -1,11 +1,11 @@
 import express, { Application } from 'express';
 import cors from 'cors';
 import { SequelizeConnection } from "./utils/sequelize";
-import Club from './models/club'
 
 import { PORT } from './utils/config';
 
 import healthCheckRouter from './routes/healthCheckRouter';
+import clubRouter from './routes/clubRouter';
 
 const app: Application = express();
 
@@ -18,24 +18,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/healthcheck', healthCheckRouter);
-
-// nää pitää siirtää tästä pois...
-app.get('/api/club', async (req, res) => {
-  const allClubs = await Club.findAll({
-     // Avoid getting sequelize fields
-     raw: true
-  })
-
-  res.status(200).send(allClubs);
-})
-
-app.post('/api/club', async (req, res) => {
-  const newClub = await Club.create({
-    name: 'FC Orvokki'
-  })
-  res.status(200).send(newClub);
-})
-
+app.use('/api/club', clubRouter);
 
 const start = async () => {
   app.listen(PORT, () => {
