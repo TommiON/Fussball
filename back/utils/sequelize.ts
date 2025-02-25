@@ -1,9 +1,9 @@
 import { Dialect, Sequelize} from "sequelize";
+import { Umzug, SequelizeStorage } from "umzug";
 
 export class SequelizeConnection {
     // static singleton
     private static instance: Sequelize;
-
 
     private constructor() {
         // todo: ympäristömuuttujat ojennukseen
@@ -24,6 +24,8 @@ export class SequelizeConnection {
         SequelizeConnection.instance.authenticate().then(() => {
             console.log('Sequelize yhdistetty')
         })
+
+        this.runMigrations();
     }
 
     public static getInstance(): Sequelize {
@@ -32,5 +34,22 @@ export class SequelizeConnection {
         }
 
         return SequelizeConnection.instance;
+    }
+
+    public runMigrations = async () => {
+        const migrator = new Umzug({
+            migrations: {
+                glob: 'migrations/*.ts',
+              },
+            //storage: new SequelizeStorage({ SequelizeConnection.instance, tableName: 'migrations' }),
+            context: SequelizeConnection.instance.getQueryInterface(),
+            logger: console,
+        });
+
+        const migrations = await migrator.up();
+
+        console.log('Migrations up to date', {
+            files: migrations.map((mig) => mig.name),
+        })
     }
 }
