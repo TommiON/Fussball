@@ -41,7 +41,7 @@ export class SequelizeConnection {
             migrations: {
                 glob: 'migrations/*.ts',
               },
-            //storage: new SequelizeStorage({ SequelizeConnection.instance, tableName: 'migrations' }),
+            storage: new SequelizeStorage({ SequelizeConnection.getInstance(), tableName: 'migrations' }),
             context: SequelizeConnection.instance.getQueryInterface(),
             logger: console,
         });
