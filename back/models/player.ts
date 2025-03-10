@@ -1,37 +1,36 @@
 import {DataTypes, Model} from "sequelize";
 import {SequelizeConnection} from "../utils/sequelize";
 
-export default class Club extends Model {
+export default class Player extends Model {
     declare id: number;
     declare name: string;
-    declare established: Date;
+    declare birthday: Date;
 }
 
 const sequelizeConnection = SequelizeConnection.getInstance();
 
-Club.init(
-    {
+Player.init({
         id: {
-            field: 'id',
             primaryKey: true,
             type: DataTypes.INTEGER,
             allowNull: false,
             autoIncrement: true,
         },
         name: {
-            field: 'name',
             type: DataTypes.STRING
         },
-        established: {
-            field: 'established',
+        birthday: {
             type: DataTypes.DATE
+        },
+        jalka: {
+            type: DataTypes.TEXT
         }
-    },
-    {
-        sequelize:  sequelizeConnection,
-        tableName: "clubs",
-        modelName: "Club",
-    },
-);
+        },
+        {
+            sequelize: sequelizeConnection,
+            tableName: "players",
+            modelName: "Player",
+        },
+    );
 
-Club.sync({ alter: true });
+Player.sync({ alter: true });

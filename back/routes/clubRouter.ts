@@ -1,5 +1,8 @@
 import express = require('express');
-import Club from '../models/club';
+import Club = require('../models');
+// import * as Club from '../models';
+
+console.log('**', typeof Club)
 
 const router = express.Router();
 
